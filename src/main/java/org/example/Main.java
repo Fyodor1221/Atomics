@@ -17,43 +17,35 @@ public class Main {
 
         new Thread(() -> {
             for (String str : texts) {
-                if (palindromeCheck(str)) {
-                    switch (str.length()) {
-                        case (3) -> count3.getAndIncrement();
-                        case (4) -> count4.getAndIncrement();
-                        case (5) -> count5.getAndIncrement();
-                    }
-                }
+                count(palindromeCheck(str), str);
             }
         }).start();
 
         new Thread(() -> {
             for (String str : texts) {
-                if (oneLetCheck(str)) {
-                    switch (str.length()) {
-                        case (3) -> count3.getAndIncrement();
-                        case (4) -> count4.getAndIncrement();
-                        case (5) -> count5.getAndIncrement();
-                    }
-                }
+                count(singleCheck(str), str);
             }
         }).start();
 
         new Thread(() -> {
             for (String str : texts) {
-                if (alBetCheck(str)) {
-                    switch (str.length()) {
-                        case (3) -> count3.getAndIncrement();
-                        case (4) -> count4.getAndIncrement();
-                        case (5) -> count5.getAndIncrement();
-                    }
-                }
+                count(abCheck(str), str);
             }
         }).start();
 
         System.out.println("Красивых слов с длиной 3: " + count3 + " шт.");
         System.out.println("Красивых слов с длиной 4: " + count4 + " шт.");
         System.out.println("Красивых слов с длиной 5: " + count5 + " шт.");
+    }
+
+    public static  void count(boolean bool, String str) {
+        if (bool) {
+            switch (str.length()) {
+                case (3) -> count3.getAndIncrement();
+                case (4) -> count4.getAndIncrement();
+                case (5) -> count5.getAndIncrement();
+            }
+        }
     }
 
     public static boolean palindromeCheck (String str) {
@@ -64,7 +56,7 @@ public class Main {
         return true;
     }
 
-    public static boolean oneLetCheck (String str) {
+    public static boolean singleCheck(String str) {
         for (int i = 0; i < str.length() - 1; i++) {
             if (str.charAt(i) != str.charAt(i + 1)) {
                 return false;
@@ -73,7 +65,7 @@ public class Main {
         return true;
     }
 
-    public static boolean alBetCheck (String str) {
+    public static boolean abCheck(String str) {
         for (int i = 0; i < str.length() - 1; i++) {
             if (str.charAt(i) > str.charAt(i + 1)) {
                 return false;
